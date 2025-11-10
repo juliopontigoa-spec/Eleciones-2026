@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Página de Internet – Elecciones (Iniciativa de Julián Pontigo)</title>
+  <meta name="description" content="Proyecto ciudadano para facilitar el acceso a planes de gobierno y permitir comparaciones con ayuda de IA." />
+  <!-- TailwindCSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Estilos mínimos complementarios */
+    .tab-active { border-bottom: 2px solid rgb(15 23 42); color: rgb(15 23 42); }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+  <!-- Header -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur border-b">
+    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <span class="inline-flex h-9 w-9 items-center justify-center rounded-2xl bg-slate-900 text-white font-bold">JP</span>
+        <div>
+          <div class="font-semibold leading-tight">Página de Internet Elecciones</div>
+          <div class="text-xs text-slate-500 leading-none">Una iniciativa de Julián Pontigo</div>
+        </div>
+      </div>
+      <nav class="hidden md:flex gap-6 text-sm">
+        <a href="#inicio" class="hover:text-slate-900 text-slate-600">Inicio</a>
+        <a href="#ai" class="hover:text-slate-900 text-slate-600">Asistente IA</a>
+        <a href="#candidatos" class="hover:text-slate-900 text-slate-600">Partidos y Planes</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="inicio" class="relative">
+    <div class="max-w-6xl mx-auto px-4 py-10 md:py-16">
+      <div class="grid md:grid-cols-5 gap-8 items-center">
+        <div class="md:col-span-3 space-y-4">
+          <h1 class="text-3xl md:text-5xl font-bold tracking-tight">
+            Conoce y compara los <span class="text-slate-900">planes de gobierno</span> de forma clara
+          </h1>
+          <p class="text-slate-600 text-lg">
+            Una iniciativa cívica de <strong>Julián Pontigo</strong> para acercar la información pública a la ciudadanía.
+            Busca claridad, transparencia y participación informada.
+          </p>
+          <div class="flex flex-wrap gap-2 text-xs">
+            <span class="px-2 py-1 bg-slate-100 rounded">Transparencia</span>
+            <span class="px-2 py-1 bg-slate-100 rounded">Comparación</span>
+            <span class="px-2 py-1 bg-slate-100 rounded">Accesibilidad</span>
+            <span class="px-2 py-1 bg-slate-100 rounded">Educación Cívica</span>
+          </div>
+        </div>
+        <div class="md:col-span-2">
+          <img src="https://images.unsplash.com/photo-1451188502541-13943edb6acb?q=80&w=1600&auto=format&fit=crop" alt="Civismo y tecnología" class="rounded-2xl shadow" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="max-w-6xl mx-auto px-4 space-y-12 pb-16">
+    <!-- Navegador de medios -->
+    <section class="space-y-4" aria-labelledby="media">
+      <h2 id="media" class="text-2xl font-bold">Navegador del Proyecto</h2>
+
+      <div>
+        <div class="flex gap-6 border-b">
+          <button id="tab-foto" class="py-2 text-slate-600" onclick="showTab('foto')">Foto</button>
+          <button id="tab-video" class="py-2 text-slate-600" onclick="showTab('video')">Video</button>
+          <button id="tab-info" class="py-2 text-slate-600" onclick="showTab('info')">Información</button>
+        </div>
+
+        <!-- Foto -->
+        <div id="panel-foto" class="bg-white p-4 rounded-b-xl border space-y-3">
+          <div class="flex items-center gap-2">
+            <input id="foto-url" class="w-full border rounded px-3 py-2" placeholder="URL de imagen (jpg, png, etc.)" />
+            <button class="px-3 py-2 text-sm rounded border" onclick="renderFoto()">Mostrar</button>
+          </div>
+          <div id="foto-preview" class="text-sm text-slate-500">Coloca una URL de imagen pública para mostrarla aquí.</div>
+        </div>
+
+        <!-- Video -->
+        <div id="panel-video" class="hidden bg-white p-4 rounded-b-xl border space-y-3">
+          <div class="flex items-center gap-2">
+            <input id="video-url" class="w-full border rounded px-3 py-2" placeholder="URL de video (YouTube/Vimeo embebible)" />
+            <button class="px-3 py-2 text-sm rounded border" onclick="renderVideo()">Mostrar</button>
+          </div>
+          <div id="video-preview" class="text-sm text-slate-500">Coloca un enlace de YouTube/Vimeo embebible.</div>
+        </div>
+
+        <!-- Info -->
+        <div id="panel-info" class="hidden bg-white p-4 rounded-b-xl border space-y-3">
+          <textarea id="info-text" rows="5" class="w-full border rounded px-3 py-2">Proyecto ciudadano para facilitar el acceso a planes de gobierno y fomentar el voto informado.</textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- Asistente IA (placeholder) -->
+    <section id="ai" class="space-y-4" aria-labelledby="ai-title">
+      <h2 id="ai-title" class="text-2xl font-bold">Asistente con IA para consultas</h2>
+      <div class="bg-white border rounded-xl grid md:grid-cols-2">
+        <div class="p-6 space-y-4">
+          <div class="font-semibold">Haz preguntas específicas</div>
+          <p class="text-sm text-slate-600">
+            Este panel es un prototipo listo para conectar con una API de chat (OpenAI/Azure). Por ahora, funciona como demostración.
+          </p>
+          <div class="space-y-2">
+            <label class="text-xs font-medium text-slate-500">Pregunta</label>
+            <input id="ai-input" class="w-full border rounded px-3 py-2" placeholder="Escribe tu pregunta sobre planes de gobierno…" />
+            <div class="flex gap-2">
+              <button class="px-4 py-2 rounded bg-slate-900 text-white" onclick="fakeAnswer()">Enviar</button>
+              <button class="px-4 py-2 rounded border" onclick="document.getElementById('ai-input').value='';document.getElementById('ai-output').innerHTML=''">Limpiar</button>
+            </div>
+          </div>
+          <div class="text-xs text-slate-500">Ejemplos rápidos:</div>
+          <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+            <li class="p-2 rounded bg-slate-50 border">¿Qué propone el partido X para empleo juvenil?</li>
+            <li class="p-2 rounded bg-slate-50 border">Compara salud de A vs. B (3 puntos clave).</li>
+            <li class="p-2 rounded bg-slate-50 border">¿Es viable la propuesta de pensiones de Y según la legislación?</li>
+            <li class="p-2 rounded bg-slate-50 border">Resumen del plan de vivienda de Z (200 palabras).</li>
+          </ul>
+        </div>
+        <div class="p-6 border-t md:border-l md:border-t-0 space-y-3 bg-slate-50">
+          <div class="text-sm font-medium">Respuesta</div>
+          <div id="ai-output" class="rounded border bg-white p-4 min-h-[180px] text-sm text-slate-700">
+            Conecta este panel a tu API en <code>/api/chat</code>. Recomendación: almacenar localmente los PDFs de planes,
+            extraer texto (OCR si hace falta) y construir un índice con embeddings para respuestas citadas.
+            <hr class="my-3">
+            <div class="text-xs text-slate-500">Nota legal: Respuestas informativas; incluir fecha y fuente de cada cita.</div>
+          </div>
+          <div class="text-xs text-slate-500">Estado: Prototipo</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Candidatos/Partidos -->
+    <section id="candidatos" class="space-y-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-2xl font-bold">Planes de Gobierno por Partido y Candidato</h2>
+          <p class="text-slate-600">Sube el plan (URL PDF), agrega reseña breve y estructura del partido. Puedes seleccionar para comparar.</p>
+        </div>
+        <button class="px-3 py-2 rounded border" onclick="openCompare()">Comparar (<span id="compare-count">0</span>)</button>
+      </div>
+
+      <div class="relative w-full md:w-96">
+        <input id="search" class="w-full border rounded pl-3 pr-3 py-2" placeholder="Buscar por candidato o partido" oninput="renderCards()" />
+      </div>
+
+      <div id="cards" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </section>
+  </main>
+
+  <!-- Modal Comparación -->
+  <div id="modal" class="fixed inset-0 bg-black/40 hidden items-start justify-center p-4">
+    <div class="bg-white rounded-xl max-w-4xl w-full p-4">
+      <div class="flex items-center justify-between mb-3">
+        <div class="font-semibold">Comparación rápida</div>
+        <button class="text-slate-500" onclick="closeCompare()">Cerrar ✕</button>
+      </div>
+      <div id="compare-content" class="space-y-4"></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="border-t bg-white mt-12">
+    <div class="max-w-6xl mx-auto px-4 py-8 text-sm text-slate-600 flex flex-col md:flex-row items-center justify-between gap-3">
+      <div>© <span id="year"></span> Iniciativa cívica de Julián Pontigo. Todos los derechos reservados.</div>
+      <div class="text-xs">Prototipo informativo y educativo.</div>
+    </div>
+  </footer>
+
+  <script>
+    // ----- Datos base (puedes editar) -----
+    const CANDIDATOS_BASE = [
+      { nombre: "Claudia Vanessa Dobles Camargo", partido: "Coalición Agenda Ciudadana (PAC + ADN)", slug: "claudia-dobles" },
+      { nombre: "Douglas Caamaño Quirós", partido: "Alianza Costa Rica Primero", slug: "douglas-caamano" },
+      { nombre: "Ronny Castillo González", partido: "Aquí Costa Rica Manda", slug: "ronny-castillo" },
+      { nombre: "José Miguel Aguilar Berrocal", partido: "Avanza", slug: "jose-miguel-aguilar" },
+      { nombre: "David Hernández Brenes", partido: "De la Clase Trabajadora", slug: "david-hernandez" },
+      { nombre: "Claudio Alpízar Otoya", partido: "Esperanza Nacional", slug: "claudio-alpizar" },
+      { nombre: "Marco David Rodríguez Badilla", partido: "Esperanza y Libertad", slug: "marco-rodriguez" },
+      { nombre: "Walter Rubén Hernández Juárez", partido: "Justicia Social Costarricense", slug: "walter-hernandez" },
+      { nombre: "Álvaro Roberto Ramos Chaves", partido: "Liberación Nacional (PLN)", slug: "alvaro-ramos" },
+      { nombre: "Eliécer Feinzaig Mintz", partido: "Liberal Progresista (PLP)", slug: "eliecer-feinzaig" },
+      { nombre: "Fernando Zamora Castellanos", partido: "Nueva Generación (PNG)", slug: "fernando-zamora" },
+      { nombre: "Gerardo Fabricio Alvarado Muñoz", partido: "Nueva República (PNR)", slug: "gerardo-alvarado" },
+      { nombre: "Juan Carlos Hidalgo Bogantes", partido: "Unión Costarricense Democrática (PUCD)", slug: "juan-carlos-hidalgo" },
+      { nombre: "Natalia Díaz Quintana", partido: "Unidos Podemos (UP)", slug: "natalia-diaz" },
+      { nombre: "Luz Mary Alpízar Loaiza", partido: "Progreso Social Democrático (PPSD)", slug: "luz-mary-alpizar" },
+      { nombre: "Laura Virginia Fernández Delgado", partido: "Pueblo Soberano (PPSO)", slug: "laura-fernandez" },
+      { nombre: "Yolanda Fernández Ochoa", partido: "Alianza Costa Rica Primero (mencionada)", slug: "yolanda-fernandez" },
+      { nombre: "Luis Esteban Amador Jiménez", partido: "Integración Nacional (PIN)", slug: "luis-esteban-amador" },
+      { nombre: "Boris Molina Acevedo", partido: "Unión Costarricense Democrática (PUCD)", slug: "boris-molina" },
+      { nombre: "José Edgardo Morales Romero", partido: "Unión Costarricense Democrática (PUCD)", slug: "jose-edgardo-morales" },
+    ];
+
+    // Estado en memoria del navegador
+    const LS_KEY = "fichas-candidatos";
+    const LS_COMPARE = "comparar";
+    const fichas = JSON.parse(localStorage.getItem(LS_KEY) || "{}");
+    const comparar = JSON.parse(localStorage.getItem(LS_COMPARE) || "[]");
+
+    // Utilidades
+    const yearEl = document.getElementById("year");
+    yearEl.textContent = new Date().getFullYear();
+
+    function saveFichas() { localStorage.setItem(LS_KEY, JSON.stringify(fichas)); }
+    function saveComparar() { localStorage.setItem(LS_COMPARE, JSON.stringify(comparar)); document.getElementById('compare-count').textContent = comparar.length; }
+
+    // Tabs
+    function showTab(id) {
+      ["foto","video","info"].forEach(t => {
+        document.getElementById("panel-"+t).classList.add("hidden");
+        document.getElementById("tab-"+t).classList.remove("tab-active");
+      });
+      document.getElementById("panel-"+id).classList.remove("hidden");
+      document.getElementById("tab-"+id).classList.add("tab-active");
+    }
+    showTab("info"); // por defecto
+
+    // Media render
+    function renderFoto() {
+      const url = document.getElementById("foto-url").value.trim();
+      const container = document.getElementById("foto-preview");
+      if (url) {
+        container.innerHTML = `<img src="${url}" alt="Imagen del proyecto" class="rounded-xl w-full">`;
+      } else {
+        container.textContent = "Coloca una URL de imagen pública para mostrarla aquí.";
+      }
+    }
+    function toEmbedUrl(url) {
+      try {
+        const u = new URL(url);
+        if (u.hostname.includes("youtube.com")) {
+          const v = u.searchParams.get("v");
+          return `https://www.youtube.com/embed/${v}`;
+        }
+        if (u.hostname.includes("youtu.be")) {
+          return `https://www.youtube.com/embed/${u.pathname.replace("/","")}`;
+        }
+        if (u.hostname.includes("vimeo.com")) {
+          return `https://player.vimeo.com/video/${u.pathname.replace("/","")}`;
+        }
+        return url;
+      } catch { return url; }
+    }
+    function renderVideo() {
+      const url = document.getElementById("video-url").value.trim();
+      const container = document.getElementById("video-preview");
+      if (url) {
+        const embed = toEmbedUrl(url);
+        container.innerHTML = `<div class="aspect-video w-full rounded-xl overflow-hidden bg-black"><iframe class="w-full h-full" src="${embed}" title="Video del proyecto" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
+      } else {
+        container.textContent = "Coloca un enlace de YouTube/Vimeo embebible.";
+      }
+    }
+
+    // IA simulada
+    function fakeAnswer() {
+      const q = document.getElementById("ai-input").value.trim();
+      const out = document.getElementById("ai-output");
+      if (!q) { out.textContent = "Escribe una pregunta para continuar."; return; }
+      out.innerHTML = `<div><strong>Pregunta:</strong> ${q}</div>
+      <div class="mt-2">Respuesta simulada: aquí verás un resumen con citas y fuentes cuando conectemos la API.</div>
+      <div class="text-xs text-slate-500 mt-2">Fuente: (pendiente) · Fecha: ${new Date().toLocaleDateString()}</div>`;
+    }
+
+    // Render de tarjetas
+    function renderCards() {
+      const q = (document.getElementById("search").value || "").toLowerCase();
+      const list = CANDIDATOS_BASE.filter(c => c.nombre.toLowerCase().includes(q) || c.partido.toLowerCase().includes(q));
+
+      const cards = document.getElementById("cards");
+      cards.innerHTML = "";
+      list.forEach(c => {
+        const d = fichas[c.slug] || { planUrl: "", resena: "", estructura: "" };
+        const selected = comparar.includes(c.slug);
+        const card = document.createElement("div");
+        card.className = "bg-white rounded-2xl border p-5 space-y-4";
+        card.innerHTML = `
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <h3 class="text-lg font-semibold leading-tight">${c.nombre}</h3>
+              <p class="text-sm text-slate-600">${c.partido}</p>
+            </div>
+            <button class="px-3 py-1 rounded ${selected ? 'bg-slate-900 text-white' : 'border'} text-sm" data-compare="${c.slug}">${selected ? 'En comparación' : 'Comparar'}</button>
+          </div>
+          <div class="space-y-3">
+            <div>
+              <label class="text-xs font-medium text-slate-500">Plan de Gobierno (URL PDF)</label>
+              <div class="flex gap-2 mt-1">
+                <input class="w-full border rounded px-3 py-2" placeholder="https://…/plan.pdf" data-plan="${c.slug}" value="${d.planUrl || ''}" />
+                <a class="px-3 py-2 rounded border text-sm ${d.planUrl ? '' : 'pointer-events-none opacity-50'}" target="_blank" href="${d.planUrl || '#'}">Abrir</a>
+              </div>
+            </div>
+            <div>
+              <label class="text-xs font-medium text-slate-500">Reseña breve del candidato</label>
+              <textarea rows="3" class="w-full border rounded px-3 py-2" placeholder="Formación, trayectoria y ejes principales…" data-resena="${c.slug}">${d.resena || ''}</textarea>
+            </div>
+            <div>
+              <label class="text-xs font-medium text-slate-500">Estructura del partido</label>
+              <textarea rows="3" class="w-full border rounded px-3 py-2" placeholder="Órganos, liderazgos, enlaces al estatuto, etc." data-estructura="${c.slug}">${d.estructura || ''}</textarea>
+            </div>
+          </div>
+          <div class="flex items-center justify-between">
+            <div class="text-xs text-slate-500">Los datos se guardan localmente (tu navegador).</div>
+            <button class="px-4 py-2 rounded bg-slate-900 text-white" data-save="${c.slug}">Guardar</button>
+          </div>
+        `;
+        cards.appendChild(card);
+      });
+
+      // Delegación de eventos
+      cards.querySelectorAll("[data-save]").forEach(btn => {
+        btn.addEventListener("click", e => {
+          const slug = e.target.getAttribute("data-save");
+          const plan = cards.querySelector(`[data-plan="${slug}"]`).value.trim();
+          const resena = cards.querySelector(`[data-resena="${slug}"]`).value;
+          const estructura = cards.querySelector(`[data-estructura="${slug}"]`).value;
+          fichas[slug] = { planUrl: plan, resena, estructura };
+          saveFichas();
+          renderCards();
+        });
+      });
+      cards.querySelectorAll("[data-compare]").forEach(btn => {
+        btn.addEventListener("click", e => {
+          const slug = e.target.getAttribute("data-compare");
+          const idx = comparar.indexOf(slug);
+          if (idx >= 0) comparar.splice(idx,1); else comparar.push(slug);
+          saveComparar();
+          renderCards();
+        });
+      });
+
+      document.getElementById('compare-count').textContent = comparar.length;
+    }
+
+    // Comparación
+    function openCompare() {
+      const modal = document.getElementById("modal");
+      const cont = document.getElementById("compare-content");
+      cont.innerHTML = "";
+      if (!comparar.length) {
+        cont.innerHTML = '<div class="text-sm text-slate-600">No hay candidatos seleccionados. Usa el botón “Comparar” en las tarjetas.</div>';
+      } else {
+        comparar.forEach(slug => {
+          const base = CANDIDATOS_BASE.find(c => c.slug === slug) || {};
+          const d = fichas[slug] || {};
+          const div = document.createElement("div");
+          div.className = "rounded border p-3";
+          div.innerHTML = `
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <div class="font-semibold">${base.nombre || slug}</div>
+                <div class="text-xs text-slate-500">${base.partido || ''}</div>
+              </div>
+              <button class="px-3 py-1 rounded border text-sm" data-remove="${slug}">Quitar</button>
+            </div>
+            <hr class="my-3">
+            <div class="grid md:grid-cols-3 gap-3 text-sm">
+              <div>
+                <div class="text-xs font-medium text-slate-500">Plan (URL)</div>
+                ${d.planUrl ? `<a href="${d.planUrl}" target="_blank" class="underline">Abrir PDF</a>` : '<span class="text-slate-400">Pendiente</span>'}
+              </div>
+              <div>
+                <div class="text-xs font-medium text-slate-500">Resumen</div>
+                <div class="whitespace-pre-wrap">${d.resena || '—'}</div>
+              </div>
+              <div>
+                <div class="text-xs font-medium text-slate-500">Estructura</div>
+                <div class="whitespace-pre-wrap">${d.estructura || '—'}</div>
+              </div>
+            </div>
+          `;
+          cont.appendChild(div);
+        });
+      }
+      cont.querySelectorAll("[data-remove]").forEach(b => {
+        b.addEventListener("click", e => {
+          const slug = e.target.getAttribute("data-remove");
+          const idx = comparar.indexOf(slug);
+          if (idx >= 0) comparar.splice(idx,1);
+          saveComparar();
+          openCompare(); // re-render
+          renderCards();
+        });
+      });
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+    }
+    function closeCompare() {
+      const modal = document.getElementById("modal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    }
+
+    // Inicializar
+    renderCards();
+  </script>
+</body>
+</html>
